@@ -10,6 +10,7 @@
                     <thead>
                         <tr>
                             <th>Produkt</th>
+                            <th>Rozmiar</th>
                             <th>Cena</th>
                             <th>Ilość</th>
                             <th>Suma</th>
@@ -22,6 +23,7 @@
                             v-bind:key="item.product.id"
                         >
                             <td>{{ item.product.name }}</td>
+                            <td>{{ item.selected }}</td>
                             <td>PLN {{ item.product.price }}</td>
                             <td>{{ item.quantity }}</td>
                             <td>PLN {{ getItemTotal(item).toFixed(2) }}</td>
@@ -96,38 +98,9 @@
                             </div>
                         </div>
 
-                        <div class="field">
-                            <label>Rozmiar*</label>
-                            <div class="control">
-                                <input type="text" class="input" v-model="size">
-                            </div>
-                        </div>
+
 
                         <br>
-                         <div class="field">
-                            <label> Metoda płatności* </label>
-                            <select v-model="payment_type">
-                                <option disabled value="">Proszę wybrać sposób dostawy</option>
-                                <option>Przelew tradycyjny</option>
-                                <option>Blik</option>
-                                <option>Za pobraniem</option>
-                            </select>
-                            <span> Wybrano: {{ payment_type }} </span>
-                        </div>
-
-
-
-                            <br>
-                        <div class="field">
-                            <label> Sposób dostawy* </label>
-                            <select v-model="trip">
-                                <option disabled value="">Proszę wybrać sposób dostawy</option>
-                                <option>INPOST 48</option>
-                                <option>Odbiór osobisty</option>
-                                <option>Paczkomat</option>
-                            </select>
-                            <span> Wybrano: {{ trip }} </span>
-                        </div>
 
 
 
@@ -170,9 +143,6 @@ export default {
             address: '',
             zipcode: '',
             place: '',
-            size: '',
-            payment_type: '',
-            trip: '',
             errors: []
         }
     },
@@ -192,7 +162,7 @@ export default {
     methods: {
        
         getItemTotal(item) {
-            return item.quantity * item.product.price
+            return item.quantity * item.product.price * item.selected
         },
         submitForm() {
             this.errors = []
@@ -217,12 +187,7 @@ export default {
             if (this.place === '') {
                 this.errors.push('Nie uzupełniono pola Miasto!')
             }
-             if (this.size === '') {
-                this.errors.push('Nie uzupełniono pola Rozmiar!')
-            }
-             if (this.payment_type === '') {
-                this.errors.push('Nie uzupełniono pola Metoda Płatności!')
-            }
+
             if (!this.errors.length) {
                 this.$store.commit('setIsLoading', true)
                 this.stripe.createToken(this.card).then(result => {                    
@@ -243,6 +208,7 @@ export default {
                 const obj = {
                     product: item.product.id,
                     quantity: item.quantity,
+                    size: item.selected,
                     price: item.product.price * item.quantity
                 }
                 items.push(obj)
@@ -255,9 +221,6 @@ export default {
                 'zipcode': this.zipcode,
                 'place': this.place,
                 'phone': this.phone,
-                'size': this.size,
-                'trip': '',
-                'payment_type':'this.payment_type',
                 'items': items,
                 'stripe_token': token.id
             }

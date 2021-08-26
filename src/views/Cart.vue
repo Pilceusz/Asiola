@@ -2,7 +2,7 @@
     <div class="page-cart">
         <div class="columns is-multiline">
             <div class="column is-12">
-                <h1 class="t    itle">Koszyk</h1>
+                <h1 class="title">Koszyk</h1>
             </div>
 
             <div class="column is-12 box">
@@ -10,6 +10,7 @@
                     <thead>
                         <tr>
                             <th>Produkt</th>
+                            <th>Rozmiar</th>
                             <th>Cena</th>
                             <th>Ilość</th>
                             <th>Suma</th>
@@ -61,7 +62,17 @@ export default {
     },
     mounted() {
         this.cart = this.$store.state.cart
+        if (localStorage.selected) {
+            this.selected = localStorage.selected;
+        }
+
     },
+    watch: {
+       selected(sizes) {
+            localStorage.selected = sizes;
+       }
+    },
+
     methods: {
         removeFromCart(item) {
             this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)

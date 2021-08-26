@@ -8,6 +8,7 @@
             <thead>
                 <tr>
                     <th>Produkt</th>
+                    <th>Rozmiar</th>
                     <th>Cena</th>
                     <th>Ilość</th>
                     <th>Suma</th>
@@ -20,9 +21,10 @@
                     v-bind:key="item.product.id"
                 >
                     <td>{{ item.product.name }}</td>
+                    <td>{{ item.selected }}</td>
                     <td>PLN {{ item.product.price }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td>PLN {{ getItemTotal(item).toFixed(2) }}</td>
+                    <td>PLN {{ item.product.price * item.quantity }}</td>
                 </tr>
             </tbody>
         </table>
@@ -32,12 +34,14 @@
 <script>
 export default {
     name: 'OrderSummary',
+
+
     props: {
         order: Object
     },
     methods: {
         getItemTotal(item) {
-            return item.quantity * item.product.price
+            return item.quantity * item.product.price * item.selected
         },
         orderTotalLength(order) {
             return order.items.reduce((acc, curVal) => {

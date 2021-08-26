@@ -1,6 +1,7 @@
 <template>
     <tr>
-        <td><router-link :to="item.product.get_absolute_url">{{ item.product.name }} - {{ size }}</router-link></td>
+        <td><router-link :to="item.product.get_absolute_url">{{ item.product.name }}</router-link></td>
+        <td>{{ item.selected }}</td>
         <td>PLN {{ item.product.price }}</td>
         <td>
             {{ item.quantity }}

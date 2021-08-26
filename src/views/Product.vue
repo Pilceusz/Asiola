@@ -35,10 +35,10 @@
                 <p><strong>Rozmiar:</strong></p>
                     <select v-model="selected">
                        <option disabled value="">Proszę wybrać rozmiar</option>
-                       <option>S</option>
-                       <option>M</option>
-                       <option>L</option>
-                       <option>Uni</option>
+                       <option> S </option>
+                       <option> M </option>
+                       <option> L </option>
+                       <option> Uni </option>
                     </select>
                     <span> Wybrano: {{ selected }} </span>
 
@@ -71,9 +71,18 @@ export default {
             selected: '',
         }
     },
+    watch: {
+       selected(sizes) {
+            localStorage.selected = sizes;
+       }
+    },
     mounted() {
         this.getProduct()
-    },
+        if (localStorage.selected) {
+            this.selected = localStorage.selected;
+        }
+
+        },
 
     methods: {
         async getProduct(){
@@ -99,7 +108,8 @@ export default {
 
         addToCart() {
             if (isNaN(this.quantity) || this.quantity < 1) {
-                this.quantity = 1
+                this.quantity = 1;
+                this.selected = localStorage.selected;
             }
             const item = {
                 product: this.product,
