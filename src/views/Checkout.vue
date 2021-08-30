@@ -100,7 +100,31 @@
 
 
 
-                        <br>
+                        <div class="field">
+                            <label>Sposób dostawy*</label>
+                        <div class="control">
+                        <select v-model="shipment">
+                          <option disabled value="">Proszę wybrać sposób dostawy</option>
+                          <option>Paczkomat Inpost-10zł</option>
+                          <option>Kurier Inpost 48h-20zł</option>
+                          <option>Odbiór osobisty</option>
+                        </select>
+
+                    </div>
+                       </div>
+
+                       <div class="field">
+                            <label>Sposób płatności*</label>
+                        <div class="control">
+                        <select v-model="payment">
+                          <option disabled value="">Proszę wybrać sposób płatności</option>
+                          <option>Przelew krajowy</option>
+                          <option>Blik</option>
+                          <option>Płatność przy odbiorze</option>
+                        </select>
+
+                    </div>
+                    </div>
 
 
 
@@ -131,6 +155,8 @@ export default {
     name: 'Checkout',
     data() {
         return {
+            shipment: '',
+            payment: '',
             cart: {
                 items: []
             },
@@ -146,6 +172,15 @@ export default {
             errors: []
         }
     },
+
+     watch: {
+       shipment(shipment) {
+            localStorage.shipment = shipment;
+       },
+       payment(payment) {
+            localStorage.payment = payment;
+       }
+    },
     mounted() {
         document.title = 'Zamówienie | Asiola Butik'
 
@@ -156,6 +191,12 @@ export default {
             const elements = this.stripe.elements();
             this.card = elements.create('card', { hidePostalCode: true })
             this.card.mount('#card-element')
+        }
+
+        this.getLocalStorage
+        if (localStorage.payment) {
+            this.payment = localStorage.payment;
+            this.shipment = localStorage.shipment;
         }
 
     },
@@ -209,7 +250,9 @@ export default {
                     product: item.product.id,
                     quantity: item.quantity,
                     size: item.selected,
-                    price: item.product.price * item.quantity
+                    price: item.product.price * item.quantity,
+                    payment: item.payment,
+                    shipment: item.shipment,
                 }
                 items.push(obj)
             }
