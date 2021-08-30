@@ -40,7 +40,7 @@
                        <option> L </option>
                        <option> Uni </option>
                     </select>
-                    <span> Wybrano: {{ selected }} </span>
+
 
                 <div class="field has-addons mt-6">
                     <div class="control">

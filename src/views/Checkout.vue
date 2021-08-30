@@ -98,7 +98,7 @@
                             </div>
                         </div>
 
-
+                        <br>
 
                         <div class="field">
                             <label>Sposób dostawy*</label>
@@ -122,6 +122,8 @@
                           <option>Blik</option>
                           <option>Płatność przy odbiorze</option>
                         </select>
+
+
 
                     </div>
                     </div>
@@ -251,8 +253,8 @@ export default {
                     quantity: item.quantity,
                     size: item.selected,
                     price: item.product.price * item.quantity,
-                    payment: item.payment,
-                    shipment: item.shipment,
+                    payment: this.payment,
+                    shipment: this.shipment,
                 }
                 items.push(obj)
             }

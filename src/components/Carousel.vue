@@ -40,14 +40,13 @@ export default {
 <style >
     .carousel{
         display: block;
-        position: relative;
-        width: 1200px;
+        position: center;
+        width: auto;
         height: 350px;
         overflow: hidden;
-        left: 120px;
-        margin-right: -50%;
+
     }
-    
+
     button:focus, button:hover{
         outline: none;
         cursor: pointer;
