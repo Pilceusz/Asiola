@@ -40,7 +40,7 @@ export default {
 <style >
     .carousel{
         display: block;
-        position: center;
+        position: fixed;
         width: auto;
         height: 350px;
         overflow: hidden;

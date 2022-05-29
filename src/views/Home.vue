@@ -21,9 +21,8 @@
             
                 </carousel>
             </div>  
- 
     <br>
- <br>
+    <br>
     <div class="columns is-centered">
       <div class="columns is-12">
         <h2 class="is-size-3 has-text-centered mb-5">Najnowsze produkty</h2>
@@ -50,7 +49,7 @@
           </figure>
 
           <h3 class="is-size-5">{{ product.name }}</h3>
-          <p class="is-size-6 has-text-grey">PLN {{ product.price }}</p>
+          <p class="is-size-4 has-text-grey">PLN {{ product.price }}</p>
 
           <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4">Więcej</router-link>
         </div>   
@@ -62,7 +61,7 @@
           </figure>
 
           <h3 class="is-size-5">{{ product.name }}</h3>
-          <p class="is-size-6 has-text-grey">PLN {{ product.price }}</p>
+          <p class="is-size-4 has-text-grey">PLN {{ product.price }}</p>
         
           <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4">Więcej</router-link>
           
@@ -107,10 +106,7 @@ export default {
                 'https://picsum.photos/id/230/1200/400',
                 'https://picsum.photos/id/231/1200/400',
                 'https://picsum.photos/id/232/1200/400',
-                'https://picsum.photos/id/233/1200/400',
-                'https://picsum.photos/id/234/1200/400',
-                'https://picsum.photos/id/235/1200/400',
-                'https://picsum.photos/id/236/1200/400',
+
       ],
       visibleSlide: 1,
       direction: 'left',

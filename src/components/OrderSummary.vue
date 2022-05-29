@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>Produkt</th>
-                    <th>Rozmiar</th>
+
                     <th>Cena</th>
                     <th>Ilość</th>
                     <th>Suma</th>
@@ -21,7 +21,7 @@
                     v-bind:key="item.product.id"
                 >
                     <td>{{ item.product.name }}</td>
-                    <td>{{ this.selected }}</td>
+
                     <td>PLN {{ item.product.price }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>PLN {{ item.product.price * item.quantity }}</td>

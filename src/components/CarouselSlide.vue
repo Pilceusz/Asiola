@@ -32,6 +32,7 @@ export default {
 
 <style >
     .carousel-slide {
+        display: block;
         position: absolute;
         top: 0;
         left: 10%;

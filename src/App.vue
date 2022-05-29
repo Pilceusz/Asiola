@@ -70,7 +70,6 @@
     <footer class="footer">
      <form class="form-multiline has-text-centered">Znajdź nas na :
      <a href="https://www.facebook.com/Asiola-Butik-102804948598917" class="fa fa-facebook"></a>
-     <a href="https://www.snapchat.com/" class="fa fa-snapchat"></a>
      <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
      </form>
       <br>

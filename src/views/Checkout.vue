@@ -26,7 +26,7 @@
                             <td>{{ item.selected }}</td>
                             <td>PLN {{ item.product.price }}</td>
                             <td>{{ item.quantity }}</td>
-                            <td>PLN {{ getItemTotal(item).toFixed(2) }}</td>
+                            <td>PLN {{ item.product.price * item.quantity }}</td>
                         </tr>
                     </tbody>
 
@@ -146,6 +146,15 @@
 
                     <button class="button is-dark" @click="submitForm">Przejdź do płatności</button>
                 </template>
+
+
+                <hr>
+                <h1 class="title">Wybór paczkomatu</h1>
+                <div class="column is-12 box" id="easypack-map" style="height: 150px;
+                width: 100%;">
+                <div class="hero is-small is-black mb-4">
+                </div>
+                </div>
             </div>
         </div>
     </div>
@@ -153,6 +162,27 @@
 
 <script>
 import axios from 'axios'
+
+            window.easyPackAsyncInit = function () {
+            easyPack.init({
+              mapType: 'osm',
+              searchType: 'osm',
+              defaultLocale: 'pl',
+                points: {
+                    types: ['parcel_locker']
+                },
+                map: {
+                    defaultLocation: [51.507351, -0.127758],
+                    initialTypes: ['parcel_locker']
+                }
+            });
+            var map = easyPack.mapWidget('easypack-map', function(point) {
+              console.log(point), alert('Wybrano paczkomat');
+              localStorage.setItem('paczkomat', JSON.stringify(point));
+            });
+          };
+
+
 export default {
     name: 'Checkout',
     data() {
@@ -181,13 +211,13 @@ export default {
        },
        payment(payment) {
             localStorage.payment = payment;
-       }
+       },
     },
     mounted() {
         document.title = 'Zamówienie | Asiola Butik'
 
         this.cart = this.$store.state.cart
-        
+
         if (this.cartTotalLength > 0) {
             this.stripe = Stripe('pk_test_51ImOgWIcogfCGBZIumpr9o1QfzZwihd0CWoyWNKMK1QZg9CfcCCod9ujgT4mFyygFrVhnzRDOnsrUo4l2aSgDOQ400HYmUsz6K')
             const elements = this.stripe.elements();
@@ -201,9 +231,21 @@ export default {
             this.shipment = localStorage.shipment;
         }
 
+        let recaptchaScript = document.createElement('script')
+            recaptchaScript.setAttribute('src', 'https://geowidget.easypack24.net/js/sdk-for-javascript.js')
+            document.head.appendChild(recaptchaScript);
+            let styles = document.createElement('link')
+            styles.setAttribute('href', "https://geowidget.easypack24.net/css/easypack.css");
+            styles.setAttribute('height', '200px')
+            styles.setAttribute('rel', 'stylesheet');
+            document.head.appendChild(styles);
+
+
+
+
     },
     methods: {
-       
+
         getItemTotal(item) {
             return item.quantity * item.product.price * item.selected
         },
@@ -233,7 +275,7 @@ export default {
 
             if (!this.errors.length) {
                 this.$store.commit('setIsLoading', true)
-                this.stripe.createToken(this.card).then(result => {                    
+                this.stripe.createToken(this.card).then(result => {
                     if (result.error) {
                         this.$store.commit('setIsLoading', false)
                         this.errors.push('Coś poszło nie tak. Proszę spróbować ponownie')
@@ -276,13 +318,13 @@ export default {
                     this.$router.push('/cart/success')
                 })
                 .catch(error => {
-                    this.errors.push('Something went wrong. Please try again')
+                    this.errors.push('Coś poszło nie tak. Proszę spróbować ponownie')
                     console.log(error)
                 })
                 this.$store.commit('setIsLoading', false)
         }
     },
-    computed: {
+   computed: {
         cartTotalPrice() {
             return this.cart.items.reduce((acc, curVal) => {
                 return acc += curVal.product.price * curVal.quantity

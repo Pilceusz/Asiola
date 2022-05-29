@@ -31,6 +31,8 @@
                 <p v-else>Nie masz żadnych produktów w koszyku...</p>
             </div>
 
+
+
             <div class="column is-12 box">
                 <h2 class="subtitle">Suma</h2>
 
@@ -39,14 +41,20 @@
                 <hr>
 
                 <router-link to="/cart/checkout" class="button is-dark">Przejdź do podsumowania</router-link>
+
             </div>
         </div>
     </div>
 </template>
 
+
+
 <script>
 import axios from 'axios'
 import CartItem from '@/components/CartItem.vue'
+
+
+
 
 export default {
     name: 'Cart',

@@ -8,12 +8,12 @@
 
                     <div class="preview-pic tab-content">
                       <div class="tab-pane active" id="pic-1"><img v-bind:src="product.get_thumbnail"></div>
-                      <div class="tab-pane" id="pic-2"><img v-bind:src="product.get_thumbnail"></div>
+                      <div class="tab-pane" id="pic-2"><img v-bind:src="product.get_image"></div>
 
                     </div>
                     <ul class="preview-thumbnail nav nav-tabs">
                       <li class="active"><a data-target="#pic-1" data-toggle="tab"><img v-bind:src="product.get_thumbnail"></a></li>
-                      <li><a data-target="#pic-2" data-toggle="tab"><img v-bind:src="product.get_thumbnail"></a></li>
+                      <li><a data-target="#pic-2" data-toggle="tab"><img v-bind:src="product.get_image"></a></li>
 
                     </ul>
 
